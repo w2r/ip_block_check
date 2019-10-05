@@ -62,5 +62,5 @@ pip3 install pymongo
 
 效果图：
 
-![](C:\Users\wdl10\Documents\markdown\图片存放位置\cherbim-2019-10-05-20-56-16.jpg)
+![](https://i.postimg.cc/QN0tYBzD/cherbim-2019-10-05-20-56-16.jpg)
 
