@@ -37,10 +37,7 @@ def ip_saved(info_json, i):
 
 
 def ip_check():
-    for x in IP_Port.find():
-        post_url = 'https://api.telegram.org/bot981790366:AAHPBpLzVZXzvRiAV4jx7HHJ3ZAdSVRB0SI/sendMessag' \
-                   'e?chat_id={0}&text={1}'.format(x["chat_id"], str(x['ip_port']))
-        requests.get(post_url)
+    pass
 
 
 def ip_delete():
