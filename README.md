@@ -69,3 +69,7 @@ pip3 install pymongo
 ![](https://i.postimg.cc/QN0tYBzD/cherbim-2019-10-05-20-56-16.jpg)
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> d8f2bc8d45bcdd4414ef7b33df5b823d34a12a92
