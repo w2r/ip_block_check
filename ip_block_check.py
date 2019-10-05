@@ -9,7 +9,7 @@ import post2tg
 def run():
 
     # 从tg机器人获得信息
-    html = f"https://api.telegram.org/bot981790366:AAHPBpLzVZXzvRiAV4jx7HHJ3ZAdSVRB0SI/getUpdates"
+    html = f"https://api.telegram.org/bot981790366:AAHPBpLzVZXzvRiAV4jx7HHJ3**********/getUpdates"
     info1 = requests.get(html)
     info1.encoding = 'utf-8'
     info = info1.json()
