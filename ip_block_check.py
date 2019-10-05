@@ -65,7 +65,7 @@ def run():
 
             # 查看保存的ip/port
             try:
-                if ("&ip_saved" or "/ip_saved") in info["result"][-1]["message"]["text"]:
+                if "&ip_saved" in info["result"][-1]["message"]["text"]:
                     text = "你保存的ip记录为："
                     post2tg.post(info["result"][-1]["message"]["from"]["id"], text)
                     for x in db.IP_Port.find({"username": info["result"][-1]["message"]["from"]["username"]}):
