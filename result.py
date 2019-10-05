@@ -1,14 +1,5 @@
 # -*- encoding: utf-8 -*-
-"""
-@Author  :   cherbim
-@License :   清羽 (C) Copyright 2013-2019
-@Contact :   qyu0615@gmail.com
-@Software:   PyCharm
-@Project ：  第13章
-@File    :   result.py
-@Time    :   2019/10/4 22:38
-@User    ：   wdl10
-"""
+
 import requests
 from torequests.utils import curlparse
 import json

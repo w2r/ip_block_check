@@ -1,14 +1,5 @@
 # -*- encoding: utf-8 -*-
-"""
-@Author  :   cherbim
-@License :   清羽 (C) Copyright 2013-2019
-@Contact :   qyu0615@gmail.com
-@Software:   PyCharm
-@Project ：  第13章
-@File    :   post2tg.py
-@Time    :   2019/10/5 5:10
-@User    ：   wdl10
-"""
+
 import requests
 
 
