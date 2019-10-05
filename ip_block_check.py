@@ -27,7 +27,7 @@ def run():
     text8 = "%26ip_saved" + "\n"
     text9 = "%23+%e5%88%a0%e9%99%a4%e5%9f%9f%e5%90%8d%e8%ae%b0%e5%bd%95140.238.33.201%2f22" + "\n"
     text10 = "%26ip_delete+140.238.33.201%2f22"
-    text = url + text0 + text1 + text2 + text3 + text4 + text5 + text6 + text7 + text8 + text9 + text10
+    text = text0 + text1 + text2 + text3 + text4 + text5 + text6 + text7 + text8 + text9 + text10
     post2tg.post(info["result"][-1]["message"]["from"]["id"], text)
 
     # 主程序
