@@ -37,14 +37,6 @@ def run():
     # 主程序
     while True:
 
-        # 输出数据库中结果(每天十二点推送）
-        if time.strftime("%T") == "12:00:00":
-            for x in db.IP_Port.find():
-                try:
-                    result.check_result(x['chat_id'], x['ip_port'])
-                except IndexError:
-                    pass
-
         # 新数据入库
         for i in range(len(info["result"])):
             try:
@@ -52,6 +44,7 @@ def run():
                     db.ip_saved(info, i)
                 else:
                     pass
+
             # 解决发送后如果编辑信息造成的bug,懒得再判断了，直接默认忽视编辑过得信息
             except KeyError:
                 pass
@@ -65,7 +58,7 @@ def run():
 
             # 查看保存的ip/port
             try:
-                if "&ip_saved" in info["result"][-1]["message"]["text"]:
+                if ("&ip_saved" or "/ip_saved") in info["result"][-1]["message"]["text"]:
                     text = "你保存的ip记录为："
                     post2tg.post(info["result"][-1]["message"]["from"]["id"], text)
                     for x in db.IP_Port.find({"username": info["result"][-1]["message"]["from"]["username"]}):
@@ -112,6 +105,14 @@ def run():
                 pass
 
         time.sleep(3)
+    while True:
+        # 输出数据库中结果(每天十二点推送）
+        if time.strftime("%T") == "12:00:00":
+            for x in db.IP_Port.find():
+                try:
+                    result.check_result(x['chat_id'], x['ip_port'])
+                except IndexError:
+                    pass
 
 
 run()
