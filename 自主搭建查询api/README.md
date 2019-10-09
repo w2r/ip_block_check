@@ -43,7 +43,7 @@ http://api.qingyushop.ml/
     # 国外连接
     curl 'http://api.qingyushop.ml/check.php' -H 'Cookie: __cfduid=dcda57671c2ae2a72ce54d68367ec16001565742656' -H 'Origin: http://api.qingyushop.ml' -H 'Accept-Encoding: gzip, deflate' -H 'Accept-Language: zh-CN,zh;q=0.9,en;q=0.8' -H 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36' -H 'Content-Type: application/x-www-form-urlencoded; charset=UTF-8' -H 'Accept: */*' -H 'Referer: http://api.qingyushop.ml/' -H 'X-Requested-With: XMLHttpRequest' -H 'Connection: keep-alive' --data 'ip=195.133.146.64&port=22' --compressed --insecure
     # 替换result_update中连接（第16行和18行）替换过程如下：
-    # 把ip地址换成{0},端口号改成{1}，然后辅助，替代脚本中""""""中内容
+    # 把ip地址换成{0},端口号改成{1}，然后复制，替代脚本中""""""中内容
     # 国内 curl_3 = r"""替换内容"""format.(site, port),只需要更改替换内容即可
     # 国外 curl_4 = r"""替换内容"""format.(site, port),只需要更改替换内容即可
    ~~~ 
