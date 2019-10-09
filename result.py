@@ -13,18 +13,17 @@ def check_result(id_number, id_port):
         site = x["ip_port"].split("/", 1)[0]
         port = int(x["ip_port"].split("/", 1)[1])
 
-        # 国内检测
-        curl_1 = r'''curl "https://www.toolsdaquan.com/toolapi/public/ipchecking/{0}/{1}" -H "Accept: application/json, text/javascript, */*; q=0.01" -H "Referer: https://www.toolsdaquan.com/ipcheck/" -H "X-Requested-With: XMLHttpRequest" -H "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36" -H "Sec-Fetch-Mode: cors" --compressed'''.format(
+        curl_3 = """curl 'http://www.cherbim.com/check.php' -H 'Accept: */*' -H 'Referer: http://api.qingyushop.ml/' -H 'Origin: http://api.qingyushop.ml' -H 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36' -H 'Content-Type: application/x-www-form-urlencoded; charset=UTF-8' --data 'ip={0}&port={1}' --compressed --insecure""".format(
             site, port)
-        # 国外检测
-        curl_2 = r'''curl 'https://www.toolsdaquan.com/toolapi/public/ipchecking2/{0}/{1}' -H 'sec-fetch-mode: cors' -H 'cookie: _ga=GA1.2.1001757648.1569229274; _gid=GA1.2.979977111.1570047939' -H 'accept-encoding: gzip, deflate, br' -H 'accept-language: zh-CN,zh;q=0.9,en;q=0.8' -H 'user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36' -H 'accept: application/json, text/javascript, */*; q=0.01' -H 'referer: https://www.toolsdaquan.com/ipcheck/' -H 'authority: www.toolsdaquan.com' -H 'x-requested-with: XMLHttpRequest' -H 'sec-fetch-site: same-origin' --compressed'''.format(
+        curl_4 = r"""curl 'http://api.qingyushop.ml/check.php' -H 'Cookie: __cfduid=dcda57671c2ae2a72ce54d68367ec16001565742656' -H 'Origin: http://api.qingyushop.ml' -H 'Accept-Encoding: gzip, deflate' -H 'Accept-Language: zh-CN,zh;q=0.9,en;q=0.8' -H 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36' -H 'Content-Type: application/x-www-form-urlencoded; charset=UTF-8' -H 'Accept: */*' -H 'Referer: http://api.qingyushop.ml/' -H 'X-Requested-With: XMLHttpRequest' -H 'Connection: keep-alive' --data 'ip={0}&port={1}' --compressed --insecure""".format(
             site, port)
-        requests_1 = curlparse(curl_1)
-        requests_2 = curlparse(curl_2)
-        t1 = requests.request(**requests_1)
-        t2 = requests.request(**requests_2)
-        t_1 = json.loads(t1.text)
-        t_2 = json.loads(t2.text)
+
+        requests_3 = curlparse(curl_3)
+        requests_4 = curlparse(curl_4)
+        t3 = requests.request(**requests_3)
+        t4 = requests.request(**requests_4)
+        t_1 = json.loads(t3.text)
+        t_2 = json.loads(t4.text)
 
         # 结果推送到tg机器人，请修改为botapi和用户id,具体获得方式google搜索
         result_1 = ["国内检测结果：ICMP可用；TCP可用", "国内检测结果：ICMP可用；TCP不可用", "国内检测结果：ICMP不可用；TCP可用", "国内检测结果：ICMP不可用；TCP不可用"]
@@ -40,13 +39,13 @@ def check_result(id_number, id_port):
             else:
                 text_1 = result_1[3]
 
-        if t_2["outside_icmp"] == "success":
-            if t_2["outside_tcp"] == "success":
+        if t_2["icmp"] == "success":
+            if t_2["tcp"] == "success":
                 text_2 = result_2[0]
             else:
                 text_2 = result_2[1]
         else:
-            if t_2["outside_tcp"] == "success":
+            if t_2["tcp"] == "success":
                 text_2 = result_2[2]
             else:
                 text_2 = result_2[3]
@@ -54,4 +53,3 @@ def check_result(id_number, id_port):
         post2tg.post(id_number, text_content)
     else:
         pass
-
