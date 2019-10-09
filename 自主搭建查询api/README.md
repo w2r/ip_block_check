@@ -46,11 +46,6 @@ http://api.qingyushop.ml/
     # 把ip地址换成{0},端口号改成{1}，然后辅助，替代脚本中""""""中内容
     # 国内 curl_3 = r"""替换内容"""format.(site, port),只需要更改替换内容即可
     # 国外 curl_4 = r"""替换内容"""format.(site, port),只需要更改替换内容即可
-~~~
-   
+   ~~~ 
 3，将result_update.py，改为result.py，直接覆盖原本的result.py
-   
-   
-
-
-
+ 
