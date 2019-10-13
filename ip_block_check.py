@@ -9,7 +9,7 @@ import post2tg
 
 def run():
     # 从tg机器人获得信息
-    html = f"https://api.telegram.org/bot983128077:AAHYi5ouhw_pMnQe9ZwcANSKpsT3zs14Mn4/getUpdates"
+    html = r"https://api.telegram.org/bot983128077:AAHYi5ouhw_pMnQe9ZwcANSKpsT3zs14Mn4/getUpdates"
     info1 = requests.get(html)
     info1.encoding = 'utf-8'
     info = info1.json()
@@ -55,54 +55,58 @@ def run():
         info1 = requests.get(html)
         info1.encoding = 'utf-8'
         info = info1.json()
-        if info["result"][-1]["update_id"] != update_id:
-            update_id = info["result"][-1]["update_id"]
-
-            # 查看保存的ip/port
-            try:
-                if ("&ip_saved" or "/ip_saved") in info["result"][-1]["message"]["text"]:
-                    text = "你保存的ip记录为："
-                    post2tg.post(info["result"][-1]["message"]["from"]["id"], text)
-                    for x in db.IP_Port.find({"username": info["result"][-1]["message"]["from"]["username"]}):
-                        if x["ip_port"] != "-1":
-                            post2tg.post(info["result"][-1]["message"]["from"]["id"],
-                                         x["ip_port"].replace("&ip_check ", ""))
+        # 解决由于getupdate失败的问题
+        try:
+            if info["result"][-1]["update_id"] != update_id:
+                update_id = info["result"][-1]["update_id"]
 
                 # 查看保存的ip/port
-                if "&ip_delete" in info["result"][-1]["message"]["text"]:
-                    ip_delete = info["result"][-1]["message"]["text"].replace("&ip_delete ", "")
-                    for y in db.IP_Port.find({"ip_port": ip_delete}):
-                        text = "已从数据库删除IP: " + "\n" + ip_delete
+                try:
+                    if ("&ip_saved" or "/ip_saved") in info["result"][-1]["message"]["text"]:
+                        text = "你保存的ip记录为："
                         post2tg.post(info["result"][-1]["message"]["from"]["id"], text)
-                        y_delete = {"ip_port": "-1"}
-                        # 删除数据库保存的ip(将其值重置为-1)
-                        db.IP_Port.update_one(y, {"$set": y_delete})
+                        for x in db.IP_Port.find({"username": info["result"][-1]["message"]["from"]["username"]}):
+                            if x["ip_port"] != "-1":
+                                post2tg.post(info["result"][-1]["message"]["from"]["id"],
+                                             x["ip_port"].replace("&ip_check ", ""))
 
-                # 快速查询已保存ip状态
-                if "/ip_check" in info["result"][-1]["message"]["text"]:
-                    for x in db.IP_Port.find({"chat_id": info["result"][-1]["message"]["from"]["id"]}):
-                        try:
-                            result.check_result(x['chat_id'], x['ip_port'])
-                        except IndexError:
-                            pass
+                    # 查看保存的ip/port
+                    if "&ip_delete" in info["result"][-1]["message"]["text"]:
+                        ip_delete = info["result"][-1]["message"]["text"].replace("&ip_delete ", "")
+                        for y in db.IP_Port.find({"ip_port": ip_delete}):
+                            text = "已从数据库删除IP: " + "\n" + ip_delete
+                            post2tg.post(info["result"][-1]["message"]["from"]["id"], text)
+                            y_delete = {"ip_port": "-1"}
+                            # 删除数据库保存的ip(将其值重置为-1)
+                            db.IP_Port.update_one(y, {"$set": y_delete})
 
-                # 查看保存的ip/port
-                if "/ip_saved" in info["result"][-1]["message"]["text"]:
-                    text = "服务器保存记录的ip记录为："
-                    post2tg.post(info["result"][-1]["message"]["from"]["id"], text)
-                    for x in db.IP_Port.find({"username": info["result"][-1]["message"]["from"]["username"]}):
-                        if x["ip_port"] != "-1":
-                            post2tg.post(info["result"][-1]["message"]["from"]["id"],
-                                         x["ip_port"].replace("&ip_check ", ""))
+                    # 快速查询已保存ip状态
+                    if "/ip_check" in info["result"][-1]["message"]["text"]:
+                        for x in db.IP_Port.find({"chat_id": info["result"][-1]["message"]["from"]["id"]}):
+                            try:
+                                result.check_result(x['chat_id'], x['ip_port'])
+                            except IndexError:
+                                pass
 
-                # 快速删除所有保存ip
-                if "/ip_delete" in info["result"][-1]["message"]["text"]:
-                    for y in db.IP_Port.find({"chat_id": info["result"][-1]["message"]["from"]["id"]}):
-                        y_delete = {"ip_port": "-1"}
-                        db.IP_Port.update_one(y, {"$set": y_delete})
-                    post2tg.post(info["result"][-1]["message"]["from"]["id"], "已删除服务器保存IP/Port")
-            except KeyError:
-                pass
+                    # 查看保存的ip/port
+                    if "/ip_saved" in info["result"][-1]["message"]["text"]:
+                        text = "服务器保存记录的ip记录为："
+                        post2tg.post(info["result"][-1]["message"]["from"]["id"], text)
+                        for x in db.IP_Port.find({"username": info["result"][-1]["message"]["from"]["username"]}):
+                            if x["ip_port"] != "-1":
+                                post2tg.post(info["result"][-1]["message"]["from"]["id"],
+                                             x["ip_port"].replace("&ip_check ", ""))
+
+                    # 快速删除所有保存ip
+                    if "/ip_delete" in info["result"][-1]["message"]["text"]:
+                        for y in db.IP_Port.find({"chat_id": info["result"][-1]["message"]["from"]["id"]}):
+                            y_delete = {"ip_port": "-1"}
+                            db.IP_Port.update_one(y, {"$set": y_delete})
+                        post2tg.post(info["result"][-1]["message"]["from"]["id"], "已删除服务器保存IP/Port")
+                except KeyError:
+                    pass
+        except IndexError:
+            pass
 
         time.sleep(5)
 
