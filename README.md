@@ -16,7 +16,8 @@
 
 #### 好消息！好消息！好消息！
 
-论坛有mjj分享了查询IP是否被墙的php源码，开源地址：https://gitee.com/KIENG_S/jianchaipshifouzuduan，大家可以搭建自己的api接口了，具体详情请查看自主搭建里的README。
+论坛有mjj分享了查询IP是否被墙的php源码，开源地址：https://gitee.com/KIENG_S/jianchaipshifouzuduan
+大家可以搭建自己的api接口了，具体详情请查看自主搭建里的README。
 
 #### 使用方法 ：
 
