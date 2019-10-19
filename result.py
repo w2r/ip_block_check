@@ -20,36 +20,39 @@ def check_result(id_number, id_port):
 
         requests_3 = curlparse(curl_3)
         requests_4 = curlparse(curl_4)
-        t3 = requests.request(**requests_3)
-        t4 = requests.request(**requests_4)
-        t_1 = json.loads(t3.text)
-        t_2 = json.loads(t4.text)
+        try:
+            t3 = requests.request(**requests_3)
+            t4 = requests.request(**requests_4)
+            t_1 = json.loads(t3.text)
+            t_2 = json.loads(t4.text)
 
-        # 结果推送到tg机器人，请修改为botapi和用户id,具体获得方式google搜索
-        result_1 = ["国内检测结果：ICMP可用；TCP可用", "国内检测结果：ICMP可用；TCP不可用", "国内检测结果：ICMP不可用；TCP可用", "国内检测结果：ICMP不可用；TCP不可用"]
-        result_2 = ["国外检测结果：ICMP可用；TCP可用", "国外检测结果：ICMP可用；TCP不可用", "国外检测结果：ICMP不可用；TCP可用", "国外检测结果：ICMP不可用；TCP不可用"]
-        if t_1["icmp"] == "success":
-            if t_1["tcp"] == "success":
-                text_1 = result_1[0]
+            # 结果推送到tg机器人，请修改为botapi和用户id,具体获得方式google搜索
+            result_1 = ["国内检测结果：ICMP可用；TCP可用", "国内检测结果：ICMP可用；TCP不可用", "国内检测结果：ICMP不可用；TCP可用", "国内检测结果：ICMP不可用；TCP不可用"]
+            result_2 = ["国外检测结果：ICMP可用；TCP可用", "国外检测结果：ICMP可用；TCP不可用", "国外检测结果：ICMP不可用；TCP可用", "国外检测结果：ICMP不可用；TCP不可用"]
+            if t_1["icmp"] == "success":
+                if t_1["tcp"] == "success":
+                    text_1 = result_1[0]
+                else:
+                    text_1 = result_1[1]
             else:
-                text_1 = result_1[1]
-        else:
-            if t_1["tcp"] == "success":
-                text_1 = result_1[2]
-            else:
-                text_1 = result_1[3]
+                if t_1["tcp"] == "success":
+                    text_1 = result_1[2]
+                else:
+                    text_1 = result_1[3]
 
-        if t_2["icmp"] == "success":
-            if t_2["tcp"] == "success":
-                text_2 = result_2[0]
+            if t_2["icmp"] == "success":
+                if t_2["tcp"] == "success":
+                    text_2 = result_2[0]
+                else:
+                    text_2 = result_2[1]
             else:
-                text_2 = result_2[1]
-        else:
-            if t_2["tcp"] == "success":
-                text_2 = result_2[2]
-            else:
-                text_2 = result_2[3]
-        text_content = "{0}/{1}的检测结果为：".format(site, port) + "\n" + text_1 + '\n' + text_2
-        post2tg.post(id_number, text_content)
+                if t_2["tcp"] == "success":
+                    text_2 = result_2[2]
+                else:
+                    text_2 = result_2[3]
+            text_content = "{0}/{1}的检测结果为：".format(site, port) + "\n" + text_1 + '\n' + text_2
+            post2tg.post(id_number, text_content)
+        except Exception:
+            pass
     else:
         pass
