@@ -10,6 +10,8 @@
 
 更新：
 
+2019/10/14 更新文件ip_block_check 解决频繁getupdate被tg ban，无法获得更新内容问题
+
 2019/10/19 修改result.py，解决查询timeout问题（直接下载替换result文件即可）
 
 #### 好消息！好消息！好消息！
