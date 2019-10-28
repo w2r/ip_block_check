@@ -13,7 +13,7 @@ def check_result(id_number, id_port):
         site = x["ip_port"].split("/", 1)[0]
         port = int(x["ip_port"].split("/", 1)[1])
 
-        curl_3 = """curl 'http://www.cherbim.com/check.php' -H 'Accept: */*' -H 'Referer: http://api.qingyushop.ml/' -H 'Origin: http://api.qingyushop.ml' -H 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36' -H 'Content-Type: application/x-www-form-urlencoded; charset=UTF-8' --data 'ip={0}&port={1}' --compressed --insecure""".format(
+        curl_3 = """curl 'http://api.cherbim.com/check.php' -H 'Accept: */*' -H 'Referer: http://api.qingyushop.ml/' -H 'Origin: http://api.qingyushop.ml' -H 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36' -H 'Content-Type: application/x-www-form-urlencoded; charset=UTF-8' --data 'ip={0}&port={1}' --compressed --insecure""".format(
             site, port)
         curl_4 = r"""curl 'http://api.qingyushop.ml/check.php' -H 'Cookie: __cfduid=dcda57671c2ae2a72ce54d68367ec16001565742656' -H 'Origin: http://api.qingyushop.ml' -H 'Accept-Encoding: gzip, deflate' -H 'Accept-Language: zh-CN,zh;q=0.9,en;q=0.8' -H 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36' -H 'Content-Type: application/x-www-form-urlencoded; charset=UTF-8' -H 'Accept: */*' -H 'Referer: http://api.qingyushop.ml/' -H 'X-Requested-With: XMLHttpRequest' -H 'Connection: keep-alive' --data 'ip={0}&port={1}' --compressed --insecure""".format(
             site, port)
