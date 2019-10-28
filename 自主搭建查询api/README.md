@@ -2,7 +2,8 @@
 
 #### 简介：
 
-迫于不会php，之前一直偷偷摸摸调用别人的api接口，正好论坛有mjj分享了php源码，就决定自行搭建自己的api接口了。（开源地址：https://gitee.com/KIENG_S/jianchaipshifouzuduan，感谢mjj开源）
+迫于不会php，之前一直偷偷摸摸调用别人的api接口，正好论坛有mjj分享了php源码，就决定自行搭建自己的api接口了。（开源地址：https://gitee.com/KIENG_S/jianchaipshifouzuduan
+，感谢mjj开源）
 
 ##### 操作步骤
 
